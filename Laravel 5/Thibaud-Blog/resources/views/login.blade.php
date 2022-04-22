@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
 <div class="h-screen mt-5">
-    <div class="flex items-center justify-center mt-6 h-4/5 rounded-xl overflow-hidden mx-20 shadow-lg w-4/5 mx-auto">
+    <div class="flex items-center justify-center mt-6 h-4/5 rounded-xl overflow-hidden mx-20 shadow-lg w-4/5">
         <div class="h-full basis-1/2 w-1/2 p-3 flex flex-col justify-end text-gray-200" style="background: rgb(9,9,121);background: linear-gradient(90deg, rgba(47,92,191,.6)0%,rgba(9,9,121,0.7) 35% , rgba(11, 118, 139, 0.5) 100%) ,url({{ asset('img/femme.jpg') }}) center center / cover;">
             <div class="mb-5 px-3">
                 <img src="{{ asset('img/login.svg') }}" width="150" class="-ml-5" alt="">
@@ -11,10 +11,11 @@
         </div>
         
         <form action="" method="post" class="font-normal flex items-center flex-col justify-center w-1/2 ">
-            {{ csrf_field() }}
+        {{--  Pour la securité du formulaire  --}}
+            @csrf
             
             @if($errors->has('auth_errors'))
-            <div class="bg-red-100 border border-red-300 rounded text-sm text-red-500 mb-3 px-2 py-3 w-4/5">{{ $errors->first('auth_errors') }}</div>
+            <div class="alert alert-danger w-4/5">{{ $errors->first('auth_errors') }}</div>
             @endif
             <div class="form-container h-full p-5 w-full px-14 py-3">
                 <div class="mb-3">

@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
 <div class="h-screen mt-5">
-    <div class="flex items-center justify-center mt-6 h-4/5 rounded-xl overflow-hidden mx-20 shadow-lg w-4/5 mx-auto">
+    <div class="flex items-center justify-center mt-6 h-4/5 rounded-xl overflow-hidden mx-20 shadow-lg w-4/5">
         <div class="h-full basis-1/2 w-1/2 p-3 flex flex-col justify-end text-gray-200" style="background-color: rgb(9,9,121);background: linear-gradient(90deg, rgba(9,9,121,0.7) 0%, rgba(47,92,191,.6) 35%, rgba(0,212,255,.5) 100%) ,url({{ asset('img/card-top.jpg') }}) center center / cover;">
             <div class="mb-5 px-3">
                 <img src="{{ asset('img/login.svg') }}" width="150" class="-ml-5" alt="">
@@ -11,11 +11,11 @@
         </div>
         
         <form action="/signin" method="post" class="font-normal flex items-center justify-center w-1/2 ">
-            {{ csrf_field() }}
+            @csrf
             
             <div class="form-container h-full p-5 w-full px-14 py-3">
                 @if($errors->has('auth_errors'))
-                <div class="bg-red-300 border border-red-500 text-sm px-2 py-2">$errors->first('auth_errors')</div>
+                <div class="alert alert-danger">{{ $errors->first('auth_errors') }}</div>
                 @endif
                 <div class="mb-3">
                     <input type="email" name="email" id="email" class="px-2 py-2 border rounded w-full focus:ring focus:ring-offset-2 transition-all outline-none {{ $errors->has('email') ? 'border-red-500': '' }}" value="{{ old('email') }}" placeholder="Email">

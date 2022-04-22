@@ -1,3 +1,89 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.title {
+    @apply font-bold text-gray-800 mb-3;
+}
+.title.title-1{
+    @apply text-4xl;
+}
+.title.title-2 {
+    @apply text-3xl;
+}
+
+.title.title-3 {
+    @apply text-2xl;
+}
+
+.title.title-4 {
+    @apply text-xl;
+}
+.header {
+    @apply text-slate-700 border-b
+}
+.header .container {
+    @apply flex items-center py-3 mx-auto;
+}
+.navbar{
+    @apply flex items-center w-full
+}
+.navbar .start{
+    @apply mr-auto;
+}
+.navbar .end {
+@apply ml-auto;
+}
+.navbar__list li{
+    @apply inline-block mx-3 align-middle;
+}
+.header__logo{
+    @apply text-slate-500 mr-10 w-max min-w-fit;
+    
+}
+
+.navbar__link {
+    @apply px-3 py-2 mx-1 my-1 transition-all duration-300
+}
+.btn {
+    @apply px-3 py-2 mx-1 my-1 border rounded bg-gray-200 transition-all duration-300;
+}
+.btn-primary {
+    @apply bg-blue-600 text-gray-200;
+}
+.navbar__link-img{
+    width: 40px;
+    height: 40px;
+    @apply bg-transparent border-none px-0
+}
+.btn:hover,.navbar__link.is-active, .navbar__link:hover,.user-link:hover,.navbar__link-img.is-active .user-link  {
+    @apply bg-gray-400
+}
+.user-link{
+    @apply border rounded-full p-1
+}
+.link {
+    @apply font-bold text-blue-700 transition-all;
+}
+.link:hover {
+    @apply  hover:underline;
+}
+.alert {
+    @apply rounded text-sm mb-3 px-2 py-3 my-3 border;
+}
+.alert-danger{
+    @apply bg-red-100 text-red-500 border-red-300;
+}
+.alert-success {
+    @apply bg-green-100 text-green-700 border-green-400;
+
+}
+.alert-warning {
+    @apply bg-orange-100 text-orange-500 border-orange-300;
+
+}
+
+.alert-infos {
+    @apply bg-blue-100 text-blue-500 border-blue-300;
+
+}

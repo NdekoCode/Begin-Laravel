@@ -2,20 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class AccountController extends Controller
 {
-    public function profile() {
-        if(auth()->guest()) {
-            return redirect('/')->withErrors(['global_errors' => "Vous devez etre connecter pour acceder à cette page"]);
-        }
-        
+    public function profile()
+    {
         return view('/profile');
     }
 
-    public function logout () {
+    public function logout()
+    {
         auth()->logout();
-        return redirect('/')->withErrors(['global_errors'=>"Vous etes bien deconnectés"]);
+        flash("Vous etes bien deconnectés")->warning();
+        return redirect('/');
+    }
+
+    public function updatePassword()
+    {
+
+        request()->validate([
+            'password' => ['required', 'confirmed', 'min:8'],
+            'password_confirmation' => ['required'],
+
+        ], ['password.min' => "Pour des raisons de sécurité le mot de passe doit faire :min caractères"]);
+
+        // On modifie le mot de passe, ignorer le `Warning` sur la fonction `update`
+        auth()->user()->update(['password' => bcrypt(request('password'))]);
+        flash("Votre mot de passe a été modifié")->success();
+        return redirect('/profile');
+    }
+
+
+    public function updateAvatar()
+    {
+        request()->validate([
+            'avatar' => ['required', 'image']
+        ]);
+        // On enregistre le fichier dans "storages/app/public/avatars" avec un nom unique
+        $path = request('avatar')->store('avatars', 'public');
+        auth()->user()->update(['avatar' => $path]);
+        flash("Votre image a été télécharger avec succés")->success();
+        return redirect('/profile');
     }
 }

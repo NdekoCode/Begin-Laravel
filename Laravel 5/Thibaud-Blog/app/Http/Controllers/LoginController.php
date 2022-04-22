@@ -9,7 +9,8 @@ class LoginController extends Controller
     public function formLogin()
     {
         if (auth()->check()) {
-            return redirect('/profile')->withErrors(["global_errors" => "Vous etes déjà connectés"]);
+            flash("Vous etes déjà connectés")->warning();
+            return redirect('/profile');
         }
         return view('login');
     }
@@ -22,12 +23,15 @@ class LoginController extends Controller
             'password' => ['required']
         ]);
         $result = auth()->attempt([
-            'email' => request('email'),
+            'email' => strtolower(request('email')),
             'password' => request('password')
         ]);
         if ($result) {
+            
+            flash("Vous etes bien connectés")->success();
             return redirect('/profile');
         }
+        // On renvois les erreurs dans le formulaire au lieu dans l'en-tete pour bien insister
         return back()->withInput()->withErrors(['auth_errors' => "Vos identifiants sont incorrects"]);
     }
 }
